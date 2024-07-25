@@ -250,3 +250,57 @@ $$d(A, C) \leq d(A, B) + d(B, C).$$
 ## Problem 5
 Let $\mathcal{A}$ be a field over $\Omega$, and let $\mathbb{P}$ be a probability measure on $(\Omega, \sigma(\mathcal{A}))$. Let $B \in \sigma(\mathcal{A})$. Prove that for any $\epsilon > 0$, there is a set $A \in \mathcal{A}$ such that $\mathbb{P}(A \triangle B) < \epsilon$. I.e. $\mathcal{A}$ is "dense" in $\sigma(\mathcal{A})$. \
 [Hint: show that the collection of all sets $B$ satisfying this property is a $\sigma$-field.]
+
+## Proof
+
+To prove this statement, we will follow an approach similar to the method discussed in class for extending a field to a σ-field.. We'll construct a set analogous to a "compact set" and prove that it is a σ-field, thereby establishing our conclusion.
+
+Define $\bar{\mathcal{A}} = \{B \in 2^\Omega : \forall \epsilon > 0, \exists A \in \mathcal{A} \text{ such that } \mathbb{P}(A \triangle B) < \epsilon\}$.
+
+We will prove that $\bar{\mathcal{A}}$ is a $\sigma$-field.
+
+1) First, $\emptyset \in \bar{\mathcal{A}}$:
+   For any $\epsilon > 0$, choose $A = \emptyset \in \mathcal{A}$. Then $\mathbb{P}(\emptyset \triangle \emptyset) = 0 < \epsilon$.
+
+2) If $B \in \bar{\mathcal{A}}$, then $B^c \in \bar{\mathcal{A}}$:
+   Let $\epsilon > 0$. Since $B \in \bar{\mathcal{A}}$, there exists $A \in \mathcal{A}$ such that $\mathbb{P}(A \triangle B) < \epsilon$.
+   Note that $A \triangle B = A^c \triangle B^c$. Therefore, $\mathbb{P}(A^c \triangle B^c) = \mathbb{P}(A \triangle B) < \epsilon$.
+   Since $\mathcal{A}$ is a field, $A^c \in \mathcal{A}$. Thus, $B^c \in \bar{\mathcal{A}}$.
+
+3) If $\{B_n\}_{n=1}^\infty \subset \bar{\mathcal{A}}$, then $\bigcup_{n=1}^\infty B_n \in \bar{\mathcal{A}}$:
+   
+   Step 1: Let $\{A_n\}_{n=1}^\infty \subset \mathcal{A}$. We will show that $A = \bigcup_{n=1}^\infty A_n \in \bar{\mathcal{A}}$ and $\lim_{N \to \infty} \mathbb{P}(\bigcup_{n=1}^N A_n \triangle A) = 0$.
+
+   Let $D_n = A_n \setminus \bigcup_{k=1}^{n-1} A_k$. Then $\{D_n\}$ are disjoint and $A = \bigcup_{n=1}^\infty D_n$.
+
+   $$\begin{align*}
+   \mathbb{P}(A) &= \mathbb{P}(\bigcup_{n=1}^\infty D_n) = \sum_{n=1}^\infty \mathbb{P}(D_n) \\
+   &= \lim_{N \to \infty} \sum_{n=1}^N \mathbb{P}(D_n) = \lim_{N \to \infty} \mathbb{P}(\bigcup_{n=1}^N D_n)
+   \end{align*}$$
+
+   Therefore,
+   
+   $$\begin{align*}
+   \lim_{N \to \infty} \mathbb{P}(\bigcup_{n=1}^N A_n \triangle A) 
+   &= \lim_{N \to \infty} \mathbb{P}(\bigcup_{n=1}^N D_n \triangle A) \\
+   &= \lim_{N \to \infty} \mathbb{P}(A \setminus \bigcup_{n=1}^N D_n) \\
+   &= \lim_{N \to \infty} [\mathbb{P}(A) - \mathbb{P}(\bigcup_{n=1}^N D_n)] \\
+   &= \mathbb{P}(A) - \mathbb{P}(A) = 0
+   \end{align*}$$
+
+   Step 2: Now, let $B = \bigcup_{n=1}^\infty B_n$ where $B_n \in \bar{\mathcal{A}}$. We will show that $B \in \bar{\mathcal{A}}$:
+
+   Let $\epsilon > 0$. For each $n$, choose $A_n \in \mathcal{A}$ such that $\mathbb{P}(A_n \triangle B_n) < \frac{\epsilon}{2^{n+1}}$.
+
+   $$\begin{align*}
+   \mathbb{P}(\bigcup_{n=1}^N A_n \triangle B) 
+   &\leq \mathbb{P}(\bigcup_{n=1}^N A_n \triangle A) + \mathbb{P}(A \triangle B) \\
+   &< \frac{\epsilon}{2} + \sum_{n=1}^\infty \mathbb{P}(A_n \triangle B_n) \\
+   &< \frac{\epsilon}{2} + \sum_{n=1}^\infty \frac{\epsilon}{2^{n+1}} = \epsilon
+   \end{align*}$$
+
+   Since $\mathcal{A}$ is a field, $\bigcup_{n=1}^N A_n \in \mathcal{A}$. Therefore, for any $\epsilon > 0$, there exists $A \in \mathcal{A}$ such that $\mathbb{P}(A \triangle B) < \epsilon$, proving that $B \in \bar{\mathcal{A}}$.
+
+Thus, $\bar{\mathcal{A}}$ is a $\sigma$-field. Since $\sigma(\mathcal{A})$ is the smallest $\sigma$-field containing $\mathcal{A}$, we have $\sigma(\mathcal{A}) \subset \bar{\mathcal{A}}$.
+
+Therefore, for any $B \in \sigma(\mathcal{A})$ and any $\epsilon > 0$, there exists $A \in \mathcal{A}$ such that $\mathbb{P}(A \triangle B) < \epsilon$, which completes the proof.
