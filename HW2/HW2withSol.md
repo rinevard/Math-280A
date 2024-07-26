@@ -304,7 +304,7 @@ Let $\mathcal{A}$ be a field over $\Omega$, and let $\mathbb{P}$ be a probabilit
 
 To prove this statement, we will follow an approach similar to the method discussed in class for extending a field to a σ-field.. We'll construct a set analogous to a "compact set" and prove that it is a σ-field, thereby establishing our conclusion.
 
-Define $\bar{\mathcal{A}} = \{B \in \sigma(\mathcal{A}) : \forall \epsilon > 0, \exists A \in \mathcal{A} \text{ such that } \mathbb{P}(A \triangle B) < \epsilon\}$.
+Define $\bar{\mathcal{A}} = \{B \in \sigma(\mathcal{A}) : \forall \epsilon > 0, \exists A \in \mathcal{A} \text{ such that } \mathbb{P}(A \triangle B) < \epsilon\}$. Since $\bar{\mathcal{A}} \subset \sigma(A)$, every set in $\bar{\mathcal{A}}$ is measurable with respect to $\mathbb{P}$.
 
 We will prove that $\bar{\mathcal{A}}$ is a $\sigma$-field.
 
