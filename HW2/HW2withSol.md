@@ -138,11 +138,15 @@ To show that LHS = RHS:
 
 $$
 \begin{align*}
-X^c &= (A_1 \times A_2)^c \\
-&= \{(x,y) : (x,y) \notin A_1 \times A_2\} \\
-&= \{(x,y) : x \notin A_1 \text{ or } y \notin A_2\} \\
-&= \{(x,y) : x \in A_1^c \text{ and } y \in A_2\} \cup \{(x,y) : x \in A_1 \text{ and } y \in A_2^c\} \cup \{(x,y) : x \in A_1^c \text{ and } y \in A_2^c\} \\
-&= (A_1^c \times A_2) \cup (A_1 \times A_2^c) \cup (A_1^c \times A_2^c)
+X^c = &(A_1 \times A_2)^c \\
+= &\{(x,y) : (x,y) \notin A_1 \times A_2\} \\
+= &\{(x,y) : x \notin A_1 \text{ or } y \notin A_2\} \\
+= &\{(x,y) : x \in A_1^c \text{ and } y \in A_2\} 
+\\
+&\cup \{(x,y) : x \in A_1 \text{ and } y \in A_2^c\} 
+\\
+&\cup \{(x,y) : x \in A_1^c \text{ and } y \in A_2^c\} \\
+= &(A_1^c \times A_2) \cup (A_1 \times A_2^c) \cup (A_1^c \times A_2^c)
 \end{align*}
 $$
 
@@ -243,7 +247,52 @@ $$A \triangle C \subseteq (A \triangle B) \cup (B \triangle C).$$
 
 $$d(A, C) \leq d(A, B) + d(B, C).$$
 
+## Solution
+### (a) $A \cap C^c \subseteq (A \cap B^c) \cup (B \cap C^c)$.
 
+**Proof:**
+Let $x \in A \cap C^c$. Then $x \in A$ and $x \notin C$.
+We consider two cases:
+
+1. If $x \notin B$, then $x \in A \cap B^c \subseteq (A \cap B^c) \cup (B \cap C^c)$.
+2. If $x \in B$, then $x \in B \cap C^c \subseteq (A \cap B^c) \cup (B \cap C^c)$.
+
+In both cases, $x \in (A \cap B^c) \cup (B \cap C^c)$.
+Therefore, $A \cap C^c \subseteq (A \cap B^c) \cup (B \cap C^c)$. $\blacksquare$
+
+### (b) $A \triangle C \subseteq (A \triangle B) \cup (B \triangle C)$.
+
+**Proof:**
+Recall that $A \triangle C = (A \cap C^c) \cup (C \cap A^c)$.
+
+From part (a), we have:
+1. $A \cap C^c \subseteq (A \cap B^c) \cup (B \cap C^c)$
+2. $C \cap A^c \subseteq (C \cap B^c) \cup (B \cap A^c)$ 
+
+Therefore,
+
+$A \triangle C = (A \cap C^c) \cup (C \cap A^c)$
+$\subseteq [(A \cap B^c) \cup (B \cap C^c)] \cup [(C \cap B^c) \cup (B \cap A^c)]$
+$= (A \cap B^c) \cup (B \cap A^c) \cup (B \cap C^c) \cup (C \cap B^c)$
+$= (A \triangle B) \cup (B \triangle C)$
+
+Thus, $A \triangle C \subseteq (A \triangle B) \cup (B \triangle C)$. $\blacksquare$
+
+### (c) $d(A, C) \leq d(A, B) + d(B, C)$.
+
+**Proof:**
+From part (b), we know that $A \triangle C \subseteq (A \triangle B) \cup (B \triangle C)$.
+
+Since $\nu$ is an outer measure, it is monotone and countably subadditive. Therefore,
+
+$$\begin{align*}
+d(A, C) &= \nu(A \triangle C) \\
+&\leq \nu((A \triangle B) \cup (B \triangle C)) \\
+&\leq \nu(A \triangle B) + \nu(B \triangle C) \\
+&= d(A, B) + d(B, C)
+\end{align*}$$
+
+Thus, $d(A, C) \leq d(A, B) + d(B, C)$, which proves the triangle inequality. $\blacksquare$
 
 
 ---
@@ -255,21 +304,25 @@ Let $\mathcal{A}$ be a field over $\Omega$, and let $\mathbb{P}$ be a probabilit
 
 To prove this statement, we will follow an approach similar to the method discussed in class for extending a field to a σ-field.. We'll construct a set analogous to a "compact set" and prove that it is a σ-field, thereby establishing our conclusion.
 
-Define $\bar{\mathcal{A}} = \{B \in 2^\Omega : \forall \epsilon > 0, \exists A \in \mathcal{A} \text{ such that } \mathbb{P}(A \triangle B) < \epsilon\}$.
+Define $\bar{\mathcal{A}} = \{B \in \sigma(\mathcal{A}) : \forall \epsilon > 0, \exists A \in \mathcal{A} \text{ such that } \mathbb{P}(A \triangle B) < \epsilon\}$.
 
 We will prove that $\bar{\mathcal{A}}$ is a $\sigma$-field.
 
 1) First, $\emptyset \in \bar{\mathcal{A}}$:
    For any $\epsilon > 0$, choose $A = \emptyset \in \mathcal{A}$. Then $\mathbb{P}(\emptyset \triangle \emptyset) = 0 < \epsilon$.
 
+   <br>
+
 2) If $B \in \bar{\mathcal{A}}$, then $B^c \in \bar{\mathcal{A}}$:
-   Let $\epsilon > 0$. Since $B \in \bar{\mathcal{A}}$, there exists $A \in \mathcal{A}$ such that $\mathbb{P}(A \triangle B) < \epsilon$.
-   Note that $A \triangle B = A^c \triangle B^c$. Therefore, $\mathbb{P}(A^c \triangle B^c) = \mathbb{P}(A \triangle B) < \epsilon$.
+   Let $\epsilon > 0$. Since $B \in \bar{\mathcal{A}}$, there exists $A \in \mathcal{A}$ such that $\mathbb{P}(A \triangle B) < \epsilon$. \
+   Note that $A \triangle B = A^c \triangle B^c$. Therefore, $\mathbb{P}(A^c \triangle B^c) = \mathbb{P}(A \triangle B) < \epsilon$. \
    Since $\mathcal{A}$ is a field, $A^c \in \mathcal{A}$. Thus, $B^c \in \bar{\mathcal{A}}$.
+
+   <br>
 
 3) If $\{B_n\}_{n=1}^\infty \subset \bar{\mathcal{A}}$, then $\bigcup_{n=1}^\infty B_n \in \bar{\mathcal{A}}$:
    
-   Step 1: Let $\{A_n\}_{n=1}^\infty \subset \mathcal{A}$. We will show that $A = \bigcup_{n=1}^\infty A_n \in \bar{\mathcal{A}}$ and $\lim_{N \to \infty} \mathbb{P}(\bigcup_{n=1}^N A_n \triangle A) = 0$.
+   **Step 1**: Let $\{A_n\}_{n=1}^\infty \subset \mathcal{A}$. We will show that $A = \bigcup_{n=1}^\infty A_n \in \bar{\mathcal{A}}$ and $\lim_{N \to \infty} \mathbb{P}(\bigcup_{n=1}^N A_n \triangle A) = 0$.
 
    Let $D_n = A_n \setminus \bigcup_{k=1}^{n-1} A_k$. Then $\{D_n\}$ are disjoint and $A = \bigcup_{n=1}^\infty D_n$.
 
@@ -288,19 +341,33 @@ We will prove that $\bar{\mathcal{A}}$ is a $\sigma$-field.
    &= \mathbb{P}(A) - \mathbb{P}(A) = 0
    \end{align*}$$
 
-   Step 2: Now, let $B = \bigcup_{n=1}^\infty B_n$ where $B_n \in \bar{\mathcal{A}}$. We will show that $B \in \bar{\mathcal{A}}$:
+   Since $\bigcup_{n=1}^N D_n = \bigcup_{n=1}^N A_n \in \mathcal{A}$ (by $\mathcal{A}$ is a field) and $\lim_{N \to \infty} \mathbb{P}(\bigcup_{n=1}^N A_n \triangle A) = 0$, we have
+   $$A = \bigcup_{n=1}^\infty A_n \in \bar{\mathcal{A}}$$
 
-   Let $\epsilon > 0$. For each $n$, choose $A_n \in \mathcal{A}$ such that $\mathbb{P}(A_n \triangle B_n) < \frac{\epsilon}{2^{n+1}}$.
+   <br>
+
+   **Step 2**: Now, let $B = \bigcup_{n=1}^\infty B_n$ where $B_n \in \bar{\mathcal{A}}$. We will show that $B \in \bar{\mathcal{A}}$:
+
+   Let $\epsilon > 0$. For each $n$, choose $A_n \in \mathcal{A}$ such that $\mathbb{P}(A_n \triangle B_n) < \frac{\epsilon}{2^{n+1}}$. Such a choice of $A_n$ is possible since $B_n \in \bar{\mathcal{A}}$.
+
+   Define $A = \bigcup_{n=1}^{\infty} A_n$. Let $N$ be a sufficiently large positive integer satisfying:
+
+   $$\mathbb{P}\left(\bigcup_{n=1}^N A_n \triangle A\right)  < \frac{\epsilon}{2}$$
+
+   By step 1 we know that Such an $N$ exists. We then have:
+
 
    $$\begin{align*}
    \mathbb{P}(\bigcup_{n=1}^N A_n \triangle B) 
    &\leq \mathbb{P}(\bigcup_{n=1}^N A_n \triangle A) + \mathbb{P}(A \triangle B) \\
-   &< \frac{\epsilon}{2} + \sum_{n=1}^\infty \mathbb{P}(A_n \triangle B_n) \\
+   &< \frac{\epsilon}{2} + \mathbb{P}(A \triangle B) \\
+   &= \frac{\epsilon}{2} + \mathbb{P}(\bigcup_{n=1}^{\infty} A_n \triangle B_n) \\
+   &\leq \frac{\epsilon}{2} + \sum_{n=1}^\infty \mathbb{P}(A_n \triangle B_n) \\
    &< \frac{\epsilon}{2} + \sum_{n=1}^\infty \frac{\epsilon}{2^{n+1}} = \epsilon
    \end{align*}$$
 
    Since $\mathcal{A}$ is a field, $\bigcup_{n=1}^N A_n \in \mathcal{A}$. Therefore, for any $\epsilon > 0$, there exists $A \in \mathcal{A}$ such that $\mathbb{P}(A \triangle B) < \epsilon$, proving that $B \in \bar{\mathcal{A}}$.
 
-Thus, $\bar{\mathcal{A}}$ is a $\sigma$-field. Since $\sigma(\mathcal{A})$ is the smallest $\sigma$-field containing $\mathcal{A}$, we have $\sigma(\mathcal{A}) \subset \bar{\mathcal{A}}$.
+Thus, $\bar{\mathcal{A}}$ is a $\sigma$-field. Since $\sigma(\mathcal{A})$ is the smallest $\sigma$-field containing $\mathcal{A}$, we have $\sigma(\mathcal{A}) \subset \bar{\mathcal{A}}$. However, by the definition of $\bar{\mathcal{A}}$ we have $\bar{\mathcal{A}} \subset \sigma(\mathcal{A})$, which shows that $\bar{\mathcal{A}} = \sigma(\mathcal{A})$.
 
-Therefore, for any $B \in \sigma(\mathcal{A})$ and any $\epsilon > 0$, there exists $A \in \mathcal{A}$ such that $\mathbb{P}(A \triangle B) < \epsilon$, which completes the proof.
+Therefore, for any $B \in \sigma(\mathcal{A})$ and any $\epsilon > 0$, there exists $A \in \mathcal{A}$ such that $\mathbb{P}(A \triangle B) < \epsilon$, which completes the proof. $\blacksquare$
